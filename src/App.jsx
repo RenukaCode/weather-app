@@ -3,6 +3,7 @@ import {AppBar, Toolbar, Typography, Container, Box, Card, CardContent} from "@m
 // import ButtonTest from "./ButtonTest";
 import SearchBox from "./SearchBox";
 import {getWeather} from "./WeatherService";
+import WeatherInfoBox from "./WeatherInfoBox";
 
 function App(){
   const [weather, setWeather] = useState(null);
@@ -16,7 +17,6 @@ function App(){
     try{
       const data = await getWeather(city);
       setWeather(data);
-      console.log(data);
     } catch(err){
       setError(err.message);
       setWeather(null);
@@ -39,24 +39,7 @@ function App(){
       <Container maxWidth = "sm" sx={{mt:4, textAlign: "center"}}>
         {loading && <Typography>Loading...</Typography>}
         {error && <Typography color="error">{error}</Typography>}
-        {weather && (
-          <Card sx={{borderRadius:3, boxShadow: 3}}>
-            <CardContent>
-              <Typography variant = "h5">
-                {weather.city}, {weather.country}
-              </Typography>
-              <Typography variant="h3" sx={{my:2}}>
-                {Math.round(weather.temp)}°C
-              </Typography>
-              <Typography variant="body1" sx={{textTransorm: "capitalize"}}>
-                {weather.description}
-              </Typography>
-              <Typography variant="body2" sx={{mt:1}}>
-                Wind: {weather.windSpeed} m/s
-              </Typography>
-            </CardContent>
-          </Card>
-        )}
+        <WeatherInfoBox weather={weather}/>
       </Container>
     </>
   );
