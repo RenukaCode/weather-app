@@ -37,14 +37,14 @@ function SearchBox({onSearch}){
                             disableUnderline: true,
                             startAdornment: (
                                 <InputAdornment position="start">
-                                    <SearchIcon sx={{color: "#000"}}/>
+                                    <SearchIcon sx={{color: "#2fa5ed"}}/>
                                 </InputAdornment>
                             ),
                             endAdornment: (
                                 <InputAdornment position="end">
                                     <Typography
                                     onClick = {handleSubmit}
-                                    sx={{color: "#000", cursor:"pointer", fontWeight: 500, pr:1}}
+                                    sx={{color: "#2fa5ed", cursor:"pointer", fontWeight: 500, pr:1}}
                                     >
                                         Search
                                     </Typography>
