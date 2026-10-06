@@ -1,5 +1,5 @@
 import {useState, useEffect} from "react";
-import {AppBar, Toolbar, Typography, Container, Box, Alert, Switch, FormControlLabel, CircularProgress} from "@mui/material";
+import {AppBar, Toolbar, Typography, Container, Box, Alert, CircularProgress} from "@mui/material";
 // import ButtonTest from "./ButtonTest";
 import SearchBox from "./SearchBox";
 import {getWeather, getForecast} from "./WeatherService";
@@ -44,32 +44,37 @@ function App(){
   return(
     <Box
       sx={{
-        height: "100vh",
-        overflow:"hidden",
-        width: "100%",
-        // backgroundImage: "url('/bg.jpg')",
-        // backgroundSize: "cover",
-        // backgroundPosition: "center",
-        // backgroundAttachment: "fixed",
+        minHeight:"100vh",
+        width:"100%",
+        display:"flex",
+        justifyContent:"center",
+        alignItems:"flex-start",
+        py:4,
       }}
     >
-      <AppBar position = "static" sx={{backgroundColor: "transparent", boxShadow: "none", mt:4}}>
-        <Container maxWidth="sm">
+      <Box
+        sx={{
+          width:"100%", 
+          maxWidth:"md",
+          border: "2px solid #fff",
+          borderRadius:3,
+          px:3,
+          py:3,
+          backgroundColor: "rgb(255, 255, 255, 0.05)",
+          backgroundFilter: "blur(2px)",
+        }}
+      >
+      <AppBar position = "static" sx={{backgroundColor: "transparent", boxShadow: "none", mt:2}}>
           <Toolbar disableGutters>
             <Box sx={{flexGrow: 1}}>
               <SearchBox onSearch={updateInfo}/>
             </Box>
-            <FormControlLabel control={<Switch checked={unit==="F"} onChange={toggleUnit}/>}
-            label={unit==="C"?"°C":"°F"}
-            sx={{ml:2,color:"#fff"}}
-            />
           </Toolbar>
-        </Container>
       </AppBar>
-      <Container maxWidth = "sm" sx={{mt:4, textAlign: "center"}}>
+      <Box sx={{textAlign: "center"}}>
         {loading && <CircularProgress sx={{mt:4, color:"#fff"}}/>}
         {error && (<Alert severity="error" sx={{mt:4}}>{error}</Alert>)}
-        <WeatherInfoBox weather={weather} unit={unit}/>
+        <WeatherInfoBox weather={weather} unit={unit} toggleUnit={toggleUnit}/>
 
         {forecast.length > 0 && (
           <Box sx={{display:"flex", gap:1, justifyContent:"center", mt:3, flexWrap: "wrap"}}>
@@ -78,6 +83,11 @@ function App(){
                 key={day.day}
                 sx={{
                   backgroundColor: "#2196f3",
+                  display:"flex",
+                  gap:1.5,
+                  justifyContent:"center",
+                  mt:3,
+                  flexWrap:"nowrap",
                   color:"#fff",
                   borderRadius:2,
                   minWidth:80,
@@ -104,7 +114,13 @@ function App(){
             Last Updated: {lastUpdated}
           </Typography>
         )}
-      </Container>
+        <Typography variant="caption"
+        sx={{display:"block", mt:4, color:"#fff", opacity:0.85, fontSize:14}}
+        >
+          © Renuka Bonam
+        </Typography>
+      </Box>
+      </Box>
     </Box>
   );
 }

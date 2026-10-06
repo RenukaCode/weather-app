@@ -18,10 +18,14 @@ export async function getWeather(city) {
       city: jsonResponse.name,
       country: jsonResponse.sys.country,
       temp: jsonResponse.main.temp,
+      feelsLike: jsonResponse.main.feels_like,
       description: jsonResponse.weather[0].description,
       icon: jsonResponse.weather[0].icon,
       windSpeed: jsonResponse.wind.speed,
       humidity: jsonResponse.main.humidity,
+      pressure: jsonResponse.main.pressure,
+      twmpMx:jsonResponse.main.temp.temp_max,
+      tempMin:jsonResponse.main.temp_min,
     };
   } catch (err) {
     console.log("Network/API fallback log:", err.message);

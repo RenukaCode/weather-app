@@ -1,7 +1,7 @@
 *{
   margin:0;
   padding:0;
-  box-shadow: border-box;
+  box-sizing: border-box;
 }
 
 html, body, #root{
@@ -14,6 +14,7 @@ body{
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
+  background-attachment: fixed;
   background-color: #1a1a1a;
   overflow-y: scroll;
   scrollbar-width: none;
