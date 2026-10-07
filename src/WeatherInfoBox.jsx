@@ -2,13 +2,14 @@ import { Card, CardContent, Typography, Box, Divider, Switch, FormControlLabel }
 import WaterDropIcon from "@mui/icons-material/WaterDrop";
 import AirIcon from "@mui/icons-material/Air";
 import SpeedIcon from "@mui/icons-material/Speed";
-import DeviceThermostatIcon from "@mui/icons-material/DeviceThermostat";
+import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
+import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
 
 
 function WeatherInfoBox({ weather, unit, toggleUnit }) {
   if (!weather) return null;
 
-  const convert = (c) => (unit === "F" ? Math.round((c * 9) / 5 + 32) : Math.round(c));
+  const convert = (c) => (unit === "F" ? (c * 9) / 5 + 32:c);
 
   const getTempColor = () => {
     if (weather.temp <= 0) return "#0288d1";
@@ -76,7 +77,7 @@ function WeatherInfoBox({ weather, unit, toggleUnit }) {
                 sx={{ width: 80, height: 80 }}
               />
               <Typography variant="h3" sx={{ color: getTempColor() }}>
-                {convert(weather.temp)}°{unit}
+                {convert(weather.temp).toFixed(1)}°{unit}
               </Typography>
             </Box>
             <Typography variant="body1" sx={{ textTransform: "capitalize", mt: 1 }}>
@@ -88,8 +89,25 @@ function WeatherInfoBox({ weather, unit, toggleUnit }) {
           
           <Box sx={{ textAlign: "left", minWidth: 180 }}>
             <Typography variant="body2" sx={{ mb: 1.5, color: "#2196f3" }}>
-              <strong>Feels like {convert(weather.feelsLike)}°{unit}</strong>
+              <strong>Feels like {convert(weather.feelsLike).toFixed(1)}°{unit}</strong>
             </Typography>
+
+            <Box sx={{ display: "flex", alignItems: "center", mb: 1 }}>
+             <Box sx={{ display: "flex", alignItems: "center", width:20,  }}>
+                <ArrowUpwardIcon sx={{ fontSize: 16, color: "#000", mr: 0.5 }} />
+              </Box>
+                <Typography variant="body2" sx={{ color: "#2196f3", width:70 }}>
+                  {convert(weather.tempMax).toFixed(1)}°{unit}
+                </Typography>
+              
+
+              <Box sx={{ display: "flex", alignItems: "center", width: 50  }}>
+                <ArrowDownwardIcon sx={{ fontSize: 16, color: "#000", mr: 0.5, ml:4 }} />
+                </Box>
+                <Typography variant="body2" sx={{ color: "#2196f3" }}>
+                  {convert(weather.tempMin).toFixed(1)}°{unit}
+                </Typography>
+              </Box>
 
             <Box sx={{ display: "flex", alignItems: "center", mb: 1 }}>
                 <WaterDropIcon sx={{fontSize:18,color:"#000", mr:1}}/>

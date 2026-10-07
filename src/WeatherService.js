@@ -24,7 +24,7 @@ export async function getWeather(city) {
       windSpeed: jsonResponse.wind.speed,
       humidity: jsonResponse.main.humidity,
       pressure: jsonResponse.main.pressure,
-      twmpMx:jsonResponse.main.temp.temp_max,
+      tempMax:jsonResponse.main.temp_max,
       tempMin:jsonResponse.main.temp_min,
     };
   } catch (err) {

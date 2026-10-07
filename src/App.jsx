@@ -26,6 +26,7 @@ function App(){
       setWeather(data);
       setForecast(forecastData);
       setLastUpdated(new Date().toLocaleTimeString ());
+      localStorage.setItem("lastCity", city);
     } catch(err){
       setError(err.message);
     } finally{
@@ -34,7 +35,8 @@ function App(){
   };
 
   useEffect(()=>{
-    updateInfo("London");
+    const savedCity = localStorage.getItem("lastCity") || "London";
+    updateInfo(savedCity);
   }, []);
 
   const toggleUnit = ()=>{
@@ -60,14 +62,14 @@ function App(){
           borderRadius:3,
           px:3,
           py:3,
-          backgroundColor: "rgb(255, 255, 255, 0.05)",
+          backgroundColor: "rgba(255, 255, 255, 0.05)",
           backgroundFilter: "blur(2px)",
         }}
       >
       <AppBar position = "static" sx={{backgroundColor: "transparent", boxShadow: "none", mt:2}}>
           <Toolbar disableGutters>
             <Box sx={{flexGrow: 1}}>
-              <SearchBox onSearch={updateInfo}/>
+              <SearchBox onSearch={updateInfo} initialCity={localStorage.getItem("lastCity") || ""}/>
             </Box>
           </Toolbar>
       </AppBar>
@@ -83,15 +85,16 @@ function App(){
                 key={day.day}
                 sx={{
                   backgroundColor: "#2196f3",
+                  borderRadius: 2,
+                  minWidth: 90,
+                  maxWidth:140,
+                  py:1.5,
+                  px:1,
                   display:"flex",
-                  gap:1.5,
-                  justifyContent:"center",
-                  mt:3,
-                  flexWrap:"nowrap",
+                  flex:"1 1 90px",
+                  flexDirection: "column",
+                  alignItems: "center",
                   color:"#fff",
-                  borderRadius:2,
-                  minWidth:80,
-                  p:2,
                   textAlign:"center",
                 }}
                 >
@@ -99,9 +102,10 @@ function App(){
                   <Box 
                     component="img" src={`https://openweathermap.org/img/wn/${day.icon}.png`}
                     alt={day.description}
-                    sx={{width: 50, height: 50}}
+                    sx={{width: 45, height: 45}}
                   />
-                  <Typography variant="body2">
+                  <Typography variant="body2" sx={{textTransform: "capitalize", fontSize:12}}>{day.description}</Typography>
+                  <Typography variant="body2" sx={{mt:0.5}}>
                     {convert(day.temp)}°{unit}
                   </Typography>
               </Box>

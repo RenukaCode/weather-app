@@ -1,9 +1,9 @@
 import {useState} from 'react';
-import {TextField, InputAdornment, IconButton, Typography, Box} from "@mui/material";
+import {TextField, InputAdornment, Typography, Box} from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 
-function SearchBox({onSearch}){
-    const [city, setCity] = useState("");
+function SearchBox({onSearch, initialCity=""}){
+    const [city, setCity] = useState(initialCity);
 
     const handleSubmit = (e)=>{
         e.preventDefault();
