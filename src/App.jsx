@@ -46,24 +46,27 @@ function App(){
   return(
     <Box
       sx={{
-        minHeight:"100vh",
+        Height:"100vh",
         width:"100%",
         display:"flex",
         justifyContent:"center",
         alignItems:"flex-start",
-        py:4,
+        py:3,
+        overflow: "hidden",
       }}
     >
       <Box
         sx={{
           width:"100%", 
           maxWidth:"md",
+          height: "calc(100vh - 48px)",
           border: "2px solid #fff",
           borderRadius:3,
           px:3,
           py:3,
           backgroundColor: "rgba(255, 255, 255, 0.05)",
-          backgroundFilter: "blur(2px)",
+          backdropFilter: "blur(2px)",
+          overflowY: "auto",
         }}
       >
       <AppBar position = "static" sx={{backgroundColor: "transparent", boxShadow: "none", mt:2}}>
@@ -87,7 +90,6 @@ function App(){
                   backgroundColor: "#2196f3",
                   borderRadius: 2,
                   minWidth: 90,
-                  maxWidth:140,
                   py:1.5,
                   px:1,
                   display:"flex",
