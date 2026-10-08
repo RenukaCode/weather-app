@@ -24,8 +24,8 @@ export async function getWeather(city) {
       windSpeed: jsonResponse.wind.speed,
       humidity: jsonResponse.main.humidity,
       pressure: jsonResponse.main.pressure,
-      tempMax:jsonResponse.main.temp_max,
-      tempMin:jsonResponse.main.temp_min,
+      tempMax: jsonResponse.main.temp_max,
+      tempMin: jsonResponse.main.temp_min,
     };
   } catch (err) {
     console.log("Network/API fallback log:", err.message);
@@ -44,21 +44,38 @@ export async function getForecast(city) {
 
   const data = await response.json();
 
-  const dailyForecast = [];
-  const seenDays = new Set();
+  const dailyData = {};
 
   data.list.forEach((item) => {
     const date = new Date(item.dt * 1000).toLocaleDateString("en-US", { weekday: "short" });
-    if (!seenDays.has(date)) {
-      seenDays.add(date);
-      dailyForecast.push({
+    const hour = new Date(item.dt * 1000).getHours();
+
+    if (!dailyData[date]) {
+      dailyData[date] = {
         day: date,
-        temp: item.main.temp,
+        temps: [],
         icon: item.weather[0].icon,
         description: item.weather[0].description,
-      });
+        bestDiff: Math.abs(hour - 12),
+      };
+    }
+
+    dailyData[date].temps.push(item.main.temp);
+    const diff = Math.abs(hour - 12);
+    if (diff < dailyData[date].bestDiff) {
+      dailyData[date].bestDiff = diff;
+      dailyData[date].icon = item.weather[0].icon;
+      dailyData[date].description = item.weather[0].description;
     }
   });
+
+  const dailyForecast = Object.values(dailyData).map((d) => ({
+    day: d.day,
+    tempMin: Math.min(...d.temps),
+    tempMax: Math.max(...d.temps),
+    icon: d.icon,
+    description: d.description,
+  }));
 
   return dailyForecast.slice(0, 5);
 }

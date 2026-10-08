@@ -58,7 +58,7 @@ function App(){
       <Box
         sx={{
           width:"100%", 
-          maxWidth:"md",
+          maxWidth:800,
           height: "calc(100vh - 48px)",
           border: "2px solid #fff",
           borderRadius:3,
@@ -82,33 +82,41 @@ function App(){
         <WeatherInfoBox weather={weather} unit={unit} toggleUnit={toggleUnit}/>
 
         {forecast.length > 0 && (
-          <Box sx={{display:"flex", gap:1, justifyContent:"center", mt:3, flexWrap: "wrap"}}>
+          <Box sx={{display:"flex", gap:1, mt:3, flexWrap:"wrap", justifyContent: "center" }}>
             {forecast.map((day)=>(
               <Box
                 key={day.day}
                 sx={{
                   backgroundColor: "#2196f3",
                   borderRadius: 2,
-                  minWidth: 90,
+                  flex: "1 1 100%",
+                  minWidth:120,
                   py:1.5,
                   px:1,
                   display:"flex",
-                  flex:"1 1 90px",
                   flexDirection: "column",
                   alignItems: "center",
                   color:"#fff",
                   textAlign:"center",
+                  flex: {
+                    xs: "1 1 100%",
+                    md: "1 1 120px",
+                  },
+                  minWidth: {
+                    xs: "100%",
+                    md: 120,
+                  },
                 }}
                 >
-                  <Typography variant="body2" sx={{fontWeight: "bold"}}>{day.day}</Typography>
+                  <Typography variant="body2" sx={{fontWeight: "bold", width:50, textAlign: "left"}}>{day.day}</Typography>
                   <Box 
                     component="img" src={`https://openweathermap.org/img/wn/${day.icon}.png`}
                     alt={day.description}
                     sx={{width: 45, height: 45}}
                   />
-                  <Typography variant="body2" sx={{textTransform: "capitalize", fontSize:12}}>{day.description}</Typography>
+                  <b><Typography variant="body2" sx={{textTransform: "capitalize", fontSize:12, flex:1, textAlign:"left", fontWeight:"bold", ml:1}}>{day.description}</Typography> </b>
                   <Typography variant="body2" sx={{mt:0.5}}>
-                    {convert(day.temp)}°{unit}
+                    {convert(day.tempMax)}° / {convert(day.tempMin)}°
                   </Typography>
               </Box>
             ))}

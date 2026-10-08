@@ -22,7 +22,7 @@ function WeatherInfoBox({ weather, unit, toggleUnit }) {
     <Card sx={{ borderRadius: 3, boxShadow: 3, p: 1 }}>
       <CardContent>
         <Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-between", mb: 1 }}>
-          <Typography variant="h6" sx={{ fontWeight: 500 }}>
+          <Typography variant="h6" sx={{ fontWeight: "bold", color:"#a3a1a1" }}>
             Current Weather
           </Typography>
           <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
@@ -76,11 +76,11 @@ function WeatherInfoBox({ weather, unit, toggleUnit }) {
                 alt={weather.description}
                 sx={{ width: 80, height: 80 }}
               />
-              <Typography variant="h3" sx={{ color: getTempColor() }}>
-                {convert(weather.temp).toFixed(1)}°{unit}
+              <Typography variant="h3" sx={{ color:"#2196f3" }}>
+                {convert(weather.temp).toFixed(1)}°
               </Typography>
             </Box>
-            <Typography variant="body1" sx={{ textTransform: "capitalize", mt: 1 }}>
+            <Typography variant="body1" sx={{ textTransform: "capitalize", mt: 1, color: "#a3a1a1", fontWeight: "bold"}}>
               {weather.description}
             </Typography>
           </Box>
@@ -111,7 +111,7 @@ function WeatherInfoBox({ weather, unit, toggleUnit }) {
 
             <Box sx={{ display: "flex", alignItems: "center", mb: 1 }}>
                 <WaterDropIcon sx={{fontSize:18,color:"#000", mr:1}}/>
-              <Typography variant="body2" sx={{ color: "#666", width: 100 }}>
+              <Typography variant="body2" sx={{ color: "#a3a1a1", width: 100 }}>
                 Humidity
               </Typography>
               <Typography variant="body2">{weather.humidity}%</Typography>
@@ -119,15 +119,15 @@ function WeatherInfoBox({ weather, unit, toggleUnit }) {
 
             <Box sx={{ display: "flex", alignItems: "center", mb: 1 }}>
                 <AirIcon sx={{fontSize:18,color:"#000", mr:1}}/>
-              <Typography variant="body2" sx={{ color: "#666", width: 100 }}>
+              <Typography variant="body2" sx={{ color: "#a3a1a1", width: 100 }}>
                 Wind
               </Typography>
-              <Typography variant="body2">{weather.windSpeed} m/s</Typography>
+              <Typography variant="body2">{weather.windSpeed} kph</Typography>
             </Box>
 
             <Box sx={{ display: "flex", alignItems: "center" }}>
                 <SpeedIcon sx={{fontSize:18,color:"#000", mr:1}}/>
-              <Typography variant="body2" sx={{ color: "#666", width: 100 }}>
+              <Typography variant="body2" sx={{ color: "#a3a1a1", width: 100 }}>
                 Pressure
               </Typography>
               <Typography variant="body2">{weather.pressure} hPa</Typography>
